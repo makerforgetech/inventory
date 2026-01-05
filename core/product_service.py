@@ -14,12 +14,9 @@ class ProductService:
             field = keys[int(field_num)-1]
             current = product[field]
             new_val = input(f"Enter new value for {field} (current: {current}): ").strip()
-            if new_val:
-                product[field] = new_val
-                print(f"{field.capitalize()} updated to: {new_val}")
-                return True
-            else:
-                print("No change made.")
+            product[field] = new_val
+            print(f"{field.capitalize()} updated to: {new_val}")
+            return True
         else:
             print("Cancelled or invalid selection.")
         return False

@@ -31,6 +31,7 @@ def show_product_details(product, service: ProductService):
         print("0: Return to menu")
         choice = input("Enter your choice: ").strip()
         action = actions.get(choice)
+        clear_screen()
         if not action:
             print("Invalid choice. Try again.")
             continue
@@ -96,6 +97,7 @@ def main():
     actions = {
         '1': lambda p, s, r: search_for_product(p, s, r),
         '2': add_new_product,
+        '3': add_product_with_ai,
         '0': exit_program
     }
     while True:
@@ -103,6 +105,7 @@ def main():
         print("Inventory Management")
         print("1: Search for product")
         print("2: Add new product")
+        print("3: Add product with AI")
         print("0: Exit")
         choice = input("Enter your choice: ").strip()
         action = actions.get(choice)
@@ -111,6 +114,49 @@ def main():
         else:
             print("Invalid choice. Try again.")
             input("Press Enter to continue...")
+
+
+def add_product_with_ai(products, service: ProductService, repo: ProductRepository):
+    from core.ai_utils import chatgpt_generate
+    clear_screen()
+    print("Add Product with AI")
+    title = input("Enter product name/title: ").strip()
+    if not title:
+        print("Product name cannot be empty.")
+        input("Press Enter to return to menu...")
+        return
+
+    # Prepare prompt for ChatGPT
+    prompt = f"""
+You are an assistant for inventory management. Given the product name below, generate a JSON object containing the product details with the following fields (use empty string if unknown):\n
+product_id, product_title, product_attr, product_link, product_image, Voltage/Power, Material, Dimensions, Certifications, Key_Specs.\n
+Include a link to a datasheet in product_link if possible.\n
+If the product name is a URL, attempt to retrieve the webpage and use its content to inform the product details.\n
+Product name: {title}\n
+Respond ONLY with a valid JSON string. Do NOT include markdown, code blocks, or any extra text. The response must start with '{{' and end with '}}'.
+"""
+    try:
+        ai_response = chatgpt_generate(prompt)
+        import json
+        # output the AI response for debugging
+        print(f"AI Response: {ai_response}")
+        product_data = json.loads(ai_response)
+        # Ensure product_title is set to the user input
+        # product_data['product_title'] = title
+        product_data['product_amount'] = 1
+    except Exception as e:
+        print(f"AI failed to generate product: {e}\nResponse was: {ai_response if 'ai_response' in locals() else ''}")
+        input("Press Enter to return to menu...")
+        return
+
+    # Create Product object and save
+    from core.product_model import Product
+    new_product = Product(product_data)
+    products.append(new_product)
+    repo.save_products(products)
+    print("Product added with AI!")
+    input("Press Enter to view/edit product details...")
+    show_product_details(new_product, service)
 
 if __name__ == '__main__':
     main()
