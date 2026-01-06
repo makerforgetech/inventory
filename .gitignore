@@ -208,4 +208,6 @@ __marimo__/
 
 
 products.json
+products.json.bu*
 order_list.csv
+.vscode/

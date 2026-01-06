@@ -62,6 +62,17 @@ Or directly:
 python3 cli.py
 ```
 
+### Creating an Alias (Optional)
+To make it easier to run the app, you can create a shell alias. Add the following line to your shell profile (e.g., `~/.bashrc` or `~/.zshrc`):
+```sh
+alias inventory='python3 /path/to/inventory/cli.sh'
+```
+Then, reload your shell profile:
+```sh
+source ~/.bashrc  # or source ~/.zshrc
+```
+You can now run the app by simply typing `inventory` in your terminal.
+
 ### Main Menu Options
 1. **Search for product**
 	- Enter a search term to find products. Select a product to view or edit details.
