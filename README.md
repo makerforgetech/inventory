@@ -1,5 +1,8 @@
 # Inventory Management App
 
+<img width="1025" height="676" alt="Screenshot from 2026-02-02 17-14-15" src="https://github.com/user-attachments/assets/624ba0c3-482d-4593-bfb4-44c84d7a0aec" />
+
+
 ## Overview
 This is a command-line inventory management application for tracking, searching, and editing product information. It supports manual and AI-assisted product entry, persistent storage in JSON, and flexible product detail management.
 
