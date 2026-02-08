@@ -17,6 +17,7 @@ This was created to allow a hobbyist electronics enthusiast to keep track of the
 - **Add Product with AI:**
   - Enter a product name/title and let the app use OpenAI's ChatGPT to auto-populate all product fields.
   - Review and edit the generated product details.
+  - Note: You will need credit on your OpenAI account to use the AI features.
 
 - **Edit Product Details:**
   - Update any field, including location, quantity, and custom attributes.
@@ -51,6 +52,7 @@ This was created to allow a hobbyist electronics enthusiast to keep track of the
 	```sh
 	export OPENAI_API_KEY=sk-...yourkey...
 	```
+	Note: You will need credit on your OpenAI account to use the AI features.
 
 ### Running the App
 You can run the app using the provided script:
